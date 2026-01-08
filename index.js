@@ -24,22 +24,20 @@ function formatList(text) {
 function formatStandup({ today, yesterday, blockers, userId }) {
     return (
         `🧑‍💻 <@${userId}> — **Daily Dev Standup**
-
-📝 _Quick async update to share progress, blockers, and focus for today._
-
-🕘 **Yesterday:**
-${formatList(yesterday)}
-
-🚧 **Blockers:**
-${formatList(blockers)}
-
-🎯 **Today:**
-${formatList(today)}
-`
+  
+  🕘 **Yesterday:**
+  ${formatList(yesterday)}
+  
+  🚧 **Blockers:**
+  ${formatList(blockers)}
+  
+  🎯 **Today:**
+  ${formatList(today)}
+  `
     );
 }
 
-client.once("ready", () => {
+client.once("clientReady", () => {
     console.log(`✅ Logged in as ${client.user.tag}`);
 });
 
