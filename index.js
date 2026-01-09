@@ -7,18 +7,17 @@ const client = new Client({
 
 function formatList(text) {
     const t = (text ?? "").trim();
-
     if (!t || /^none$/i.test(t)) return "- None";
 
-    const lines = t.split("\n").map(l => l.trim()).filter(Boolean);
+    // Split by newline, comma, semicolon, or pipe
+    const parts = t
+        .split(/[\n,;|]/)
+        .map(p => p.trim())
+        .filter(Boolean);
 
-    if (lines.length > 1) {
-        return lines
-            .map(l => (l.startsWith("-") || l.startsWith("•") ? l : `- ${l}`))
-            .join("\n");
-    }
-
-    return t.startsWith("-") || t.startsWith("•") ? t : `- ${t}`;
+    return parts
+        .map(p => (p.startsWith("-") || p.startsWith("•") ? p : `- ${p}`))
+        .join("\n");
 }
 
 function formatStandup({ today, yesterday, blockers, userId }) {
