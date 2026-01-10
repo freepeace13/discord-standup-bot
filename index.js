@@ -7,34 +7,35 @@ const client = new Client({
 
 function formatList(text) {
     const t = (text ?? "").trim();
-    if (!t || /^none$/i.test(t)) return "- None";
 
-    // Split by newline, comma, semicolon, or pipe
-    const parts = t
-        .split(/[\n,;|]/)
-        .map(p => p.trim())
+    if (!t || /^none$/i.test(t)) {
+        return "- None";
+    }
+
+    // Normalize input into clean bullet points
+    const lines = t
+        .split("\n")
+        .map(l => l.replace(/^[-•]\s*/, "").trim())
         .filter(Boolean);
 
-    return parts
-        .map(p => (p.startsWith("-") || p.startsWith("•") ? p : `- ${p}`))
-        .join("\n");
+    return lines.map(l => `- ${l}`).join("\n");
 }
 
 function formatStandup({ today, yesterday, blockers, userId }) {
     return (
-        `🧑‍💻 <@${userId}> — **Daily Dev Standup**
+  `🧑‍💻 <@${userId}> — **Daily Dev Standup**
   
-        **Yesterday:**
-        ${formatList(yesterday)}
-        
-        **Blockers:**
-        ${formatList(blockers)}
-        
-        **Today:**
-        ${formatList(today)}
+  **🕘 Yesterday**
+  ${formatList(yesterday)}
+  
+  **🚧 Blockers**
+  ${formatList(blockers)}
+  
+  **🎯 Today**
+  ${formatList(today)}
   `
     );
-}
+  }
 
 client.once("clientReady", () => {
     console.log(`✅ Logged in as ${client.user.tag}`);
