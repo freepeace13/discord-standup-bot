@@ -24,14 +24,14 @@ function formatStandup({ today, yesterday, blockers, userId }) {
     return (
         `🧑‍💻 <@${userId}> — **Daily Dev Standup**
   
-  🕘 **Yesterday:**
-  ${formatList(yesterday)}
-  
-  🚧 **Blockers:**
-  ${formatList(blockers)}
-  
-  🎯 **Today:**
-  ${formatList(today)}
+        **Yesterday:**
+        ${formatList(yesterday)}
+        
+        **Blockers:**
+        ${formatList(blockers)}
+        
+        **Today:**
+        ${formatList(today)}
   `
     );
 }
